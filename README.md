@@ -8,6 +8,11 @@ Você deve criar uma **página web simples** que contenha:
   - **Senha**
 - Um botão de submit que exiba os dados preenchidos em um alerta (popup) ao clicar.
 
+- Exemplo:
+  
+![Screenshot 2025-04-01 at 16 24 49](https://github.com/user-attachments/assets/6ba08daa-a5be-459f-abc2-a28a021d3ac8)
+
+
 ---
 
 ## 🚩 Requisitos
