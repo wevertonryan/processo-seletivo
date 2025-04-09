@@ -10,7 +10,7 @@
     color: var(--cor-erro);
     font-weight: 500;
 }
-/*
+
 body {
     display: flex;
     height: 100vh;
@@ -28,4 +28,4 @@ body {
 
 .tema-botao {
     position: fixed;
-}*/
+}
