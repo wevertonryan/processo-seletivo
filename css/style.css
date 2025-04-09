@@ -4,11 +4,30 @@
     margin: 0;
     padding: 0;
     font-family: "Poppins", Arial, sans-serif;
+    font-size: 20px;
+}
+
+h1 {
+    color: var(--cor-destaque);
+    font-size: 3.75em;
+}
+.formulario-cadastro h1 {
+    width: 100%;
+    margin-bottom: 50px;
 }
 
 .erro {
+    position: relative;
+    bottom: 50px;
+    display: flex;
     color: var(--cor-erro);
     font-weight: 500;
+    height: 0;
+    align-self:flex-start;
+}
+
+.tema-botao {
+    position: fixed;
 }
 
 body {
@@ -16,16 +35,86 @@ body {
     height: 100vh;
 }
 
-.formulario-cadastro, .integrale-logo{
-    width: 100%;
+.cadastro, .integrale-logo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 100%;
 }
 
-.formulario-cadastro form{
+.integrale-logo {
     display: flex;
-    flex-direction: column;
+    background-color: var(--cor-destaque);
+    flex-grow: 1;
 }
 
-.tema-botao {
-    position: fixed;
+.cadastro {
+    width: 60%;
+}
+
+.formulario-cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    align-self: center;
+    max-width: 650px;
+    width: 70%;
+    min-width: 450px;
+}
+
+#formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 80%;
+}
+
+#formulario input{
+    width: calc(100% - 10px);
+    padding: 0px 5px;
+    margin-bottom: 55px;
+    border: 0;
+    border-bottom: solid 2px var(--cor-secundaria);
+    color: var(--cor-secundaria);
+}
+#formulario input:focus {
+    transition: 0.2s ease;
+    border: 0;
+    outline: 0;
+    border-bottom: solid 2px #1A7DFF;
+}
+
+#senha-erro {
+    position: relative;
+    width: 100%;
+}
+
+#enviar {
+    color: white;
+    background-color: var(--cor-destaque);
+    font-weight: 600;
+    border: 0;
+    border-radius: 3px;
+    width: 140px;
+    height: 45px;
+}
+
+#enviar:hover {
+    cursor: pointer;
+}
+
+#info-site {
+    position: absolute;
+    color: #00000099;
+    bottom: 10px;
+    left: 2%;
+}
+
+#ver-senha {
+    position: absolute;
+    right: 0;
+}
+
+#ver-senha:hover {
+    cursor: pointer;
 }

@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/cores.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/cores.css" />
     <title>Integrale - Cadastro</title>
-</head>
-<body>
-    <div class="formulario-cadastro">
-    <h1>Cadastro</h1>
-    <div id="formulario">
-        <input type="text" id="nome" tabindex="1" placeholder="Nome"></input>
-        <input type="text" id="email" tabindex="2" placeholder="Email"></input>
-        <input type="password" id="senha" tabindex="3" placeholder="Senha"></input>
-        <p id="erro-senha" class="erro"></p>
-        <button id="enviar" tabindex="4">Enviar</button>
-    </div>
-    <p id="info-site">INTEGRALE TESTE</p>
+  </head>
+  <body>
+    <div class="cadastro">
+      <div class="formulario-cadastro">
+        <h1>Cadastro</h1>
+        <div id="formulario">
+          <input type="text" id="nome" tabindex="1" placeholder="Nome" />
+          <input type="text" id="email" tabindex="2" placeholder="Email" />
+          <div id="senha-erro">
+          <input type="password" id="senha" tabindex="3" placeholder="Senha" />
+          <p id="erro-senha" class="erro"></p>
+          </div>
+          <button id="enviar" tabindex="4">Enviar</button>
+        </div>
+      </div>
+      <p id="info-site">INTEGRALE TESTE</p>
     </div>
     <div class="integrale-logo"></div>
 
     <div class="tema-botao" tabindex="5"></div>
     <script src="js/script.js"></script>
     <script src="js/validacaoDados.js"></script>
-</body>
+  </body>
 </html>
