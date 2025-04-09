@@ -35,6 +35,10 @@ nomeElemento.addEventListener("input", (event) => {
   }
 });
 
+nomeElemento.addEventListener("focus", () => {
+  nomeElemento.classList.remove("placeholder-erro");
+})
+
 emailElemento.addEventListener("input", (event) => {
   const emailErro = document.getElementById("erro-email");
   if(emailErro){
@@ -48,9 +52,36 @@ emailElemento.addEventListener("input", (event) => {
   }
 });
 
+emailElemento.addEventListener("focus", () => {
+  emailElemento.classList.remove("placeholder-erro");
+})
+
 senhaElemento.addEventListener("input", (event) => {
   validacaoSenha(event.target)
+  const view = document.querySelector(".view");
+  if(view){
+    view.style.color = "var(--cor-selecionado)";
+  }
 });
+
+senhaElemento.addEventListener("focus", () => {
+  senhaElemento.classList.remove("placeholder-erro");
+
+  const view = document.querySelector(".view");
+  if(view){
+    view.style.color = "var(--cor-selecionado)";
+  }
+})
+
+senhaElemento.addEventListener("focusout", () => {
+
+  const view = document.querySelector(".view");
+  if(view){
+    view.style.color = "var(--cor-secundaria)";
+  }
+})
+
+
 
 
 //função para enviar os dados para um Alert e direcionar uma nova página
@@ -78,6 +109,8 @@ function validacaoNome(nome) {
     nome.value == "" ? "* Nome é obrigatório!" : "* Nome Inválido!"
   }"</p>`;
   nome.insertAdjacentHTML("afterend", mensagemErro);
+  nomeElemento.classList.remove("placeholder-erro");
+  nomeElemento.classList.add("placeholder-erro");
 }
 
 function validacaoEmail(email) {
@@ -89,6 +122,8 @@ function validacaoEmail(email) {
     email.value == "" ? "* Email é obrigatório!" : "* Email Inválido!"
   }"</p>`;
   email.insertAdjacentHTML("afterend", mensagemErro);
+  emailElemento.classList.remove("placeholder-erro");
+  emailElemento.classList.add("placeholder-erro");
 }
 
 function validacaoSenha(elementoSenha, submit){
@@ -132,6 +167,14 @@ function validacaoSenha(elementoSenha, submit){
   } else {
     mensagemErro.textContent =
       "* A Senha tem que ter pelo menos 6 caracteres!";
+  }
+  if(submit == true){
+    senhaElemento.classList.remove("placeholder-erro");
+    senhaElemento.classList.add("placeholder-erro");
+    const view = document.querySelector(".view");
+    if(view){
+      view.style.color = "var(--cor-erro)";
+    }
   }
 }
 

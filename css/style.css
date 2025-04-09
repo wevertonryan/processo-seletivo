@@ -19,13 +19,13 @@ h1 {
 .erro {
     position: relative;
     bottom: 50px;
+    font-size: 0.80em;
     display: flex;
     color: var(--cor-erro);
-    font-weight: 500;
+    font-weight: 600;
     height: 0;
     align-self:flex-start;
 }
-
 .tema-botao {
     position: fixed;
 }
@@ -44,8 +44,15 @@ body {
 
 .integrale-logo {
     display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--cor-destaque);
     flex-grow: 1;
+}
+
+.integrale-logo img {
+    max-width: 450px;
+    width: 70%;
 }
 
 .cadastro {
@@ -57,31 +64,44 @@ body {
     flex-direction: column;
     align-items: end;
     align-self: center;
-    max-width: 650px;
+    max-width: 680px;
     width: 70%;
     min-width: 450px;
 }
 
-#formulario {
+.formulario {
     display: flex;
     flex-direction: column;
     align-items: end;
     width: 80%;
+    min-width: 370px;
 }
 
-#formulario input{
+.formulario input{
     width: calc(100% - 10px);
     padding: 0px 5px;
     margin-bottom: 55px;
     border: 0;
     border-bottom: solid 2px var(--cor-secundaria);
     color: var(--cor-secundaria);
-}
-#formulario input:focus {
     transition: 0.2s ease;
+}
+.formulario input:focus {
     border: 0;
     outline: 0;
-    border-bottom: solid 2px #1A7DFF;
+    border-bottom: solid 2px var(--cor-selecionado);
+}
+
+.formulario input:focus::placeholder {
+    transition: 0.2s ease;
+    color: var(--cor-selecionado);
+}
+
+.formulario .placeholder-erro {
+    border-bottom: solid 2px var(--cor-erro);
+}
+.placeholder-erro::placeholder {
+    color: var(--cor-erro);
 }
 
 #senha-erro {
@@ -97,10 +117,12 @@ body {
     border-radius: 3px;
     width: 140px;
     height: 45px;
+    transition: 0.2s ease;
 }
 
 #enviar:hover {
     cursor: pointer;
+    background-color: var(--cor-selecionado);
 }
 
 #info-site {
@@ -111,8 +133,15 @@ body {
 }
 
 #ver-senha {
+    height: 30px;
+    width: 30px;
     position: absolute;
+    top: 0;
     right: 0;
+}
+
+#ver-senha svg {
+    transition: 0.2s ease;
 }
 
 #ver-senha:hover {
