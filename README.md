@@ -1,42 +1,63 @@
-# Teste Prático - Estágio de Programação Web
+# 🚀 Sistema de Cadastro - INTEGRALE | Teste de Estágio
 
-## 📋 Descrição do Teste
-Você deve criar uma **página web simples** que contenha:
-- Um formulário de cadastro com os seguintes campos:
-  - **Nome**
-  - **E-mail**
-  - **Senha**
-- Um botão de submit que exiba os dados preenchidos em um alerta (popup) ao clicar.
+## 📋 Descrição do Projeto
 
-- Exemplo:
-  
-![Screenshot 2025-04-01 at 16 24 49](https://github.com/user-attachments/assets/6ba08daa-a5be-459f-abc2-a28a021d3ac8)
+Este projeto é uma **página web responsiva** que simula um **formulário de cadastro**, desenvolvido como parte do teste prático para vaga de estágio da **INTEGRALE**.
 
+O objetivo foi atender aos requisitos do teste, mas criando um design mais atrativo e dinâmico para melhor experiência de usuário.
 
 ---
 
-## 🚩 Requisitos
-- A página deve ser **responsiva** (funcionar bem em celular e desktop).
-- Os dados do formulário devem ser exibidos em um `alert()`
+## 🛠️ Tecnologias Utilizadas
+
+- **HTML** – Estrutura da página  
+- **CSS** – Estilização com foco em responsividade e design dinamico 
+- **JavaScript** – Funcionalidade, interações e validação dos dados do formulário
 
 ---
 
-## 🔥 Critérios de Avaliação
+## ✅ Funcionalidades Implementadas
 
-1. ✅ **Funcionalidade básica funcionando**.
-2. ✅ **Organização do código**.
-3. ✅ **Estilo simples e responsivo.**
-4. ✅ **README.md bem estruturado explicando como visualizar o projeto.**
+- 📄 **Formulário de Cadastro** com os campos: Nome, E-mail e Senha  
+- ✅ **Validação manual de dados** com mensagens de erro específicas  
+- 📱 **Layout Responsivo**, adaptado para dispositivos móveis e desktop  
+- ✨ **Feedback visual baseado na interação do usuário** (ex: campos com erro destacados)  
+- 💬 **Alerta com os dados preenchidos** no envio do formulário (`alert()`), também desmonstrando os dados em uma nova página
+
+---
+
+## 🖼️ Design da Página
+
+O layout foi pensado para ser **simples, dinâmico e agradável visualmente**. Utilizei o **Figma** para prototipar a interface antes de implementar no código, garantindo uma melhor organização visual.
 
 ---
 
-## 📌 Instruções para Entrega
+## 📂 Como Abrir o Projeto
 
-1. Faça um **fork** deste repositório no seu GitHub.
-2. Desenvolva a aplicação conforme os requisitos descritos acima.
-3. Certifique-se de que seu código esteja devidamente organizado.
-4. Inclua instruções no seu README.md explicando como abrir o projeto.
-5. Envie o link do seu repositório GitHub para avaliação.
+### 1° Clonar Repositório
+1. Faça o clone deste repositório:
+   ```bash
+   git clone https://github.com/wevertonryan/processo-seletivo.git
+    ```    
+2. Abra o arquivo index.html no seu navegador
+
+### 2° Realizar Download
+1. Faça o download do projeto compactado diretamente pelo GitHub:  
+   ![Download ZIP](/img/README_img/Dowload_ZIP.png)
+
+2. Descompacte o projeto (utilizando WinRAR, 7-Zip ou outro programa similar)
+---
+
+## 📌 Melhorias Futuras
+- Implementação dos Dados no banco mySQL
+- Botão para permitir a alternancia Tema Claro e Tema Escuro
+
+## ⚠️ Problemas
+- Dificuldades na implementação das validações
+- Organização de Códigos e Comentários
 
 ---
-Boa sorte e bom trabalho! 🚀
+
+Para o pessoal da INTEGRALE, agradeço pela oportunidade, aprendi bastante com o desenvolvimento desse projeto, e espero que vocês possam pelo menos olhar o meu projeto e me dar um FeedBack.
+
+🙏 Deus Abençõe! aguardo Resposta.

@@ -21,3 +21,4 @@
 - Seleção com Destaque (Cores)
 - Animação
 - Botão tema claro e escuro
+- Integração com o Banco PHP
