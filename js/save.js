@@ -1,73 +1,90 @@
+//Organizar código:
+//1° Ver as funcionalidades desse código
+//2° como fazer cada parte de forma otimizada
+//3° Como modelar para fácil manutenção e legibilidade
+//4° Separar em partes (organização)
+//5° Comentar
+
+//Funções do Código:
+//- Validar Dados (ver se estão no formato correto)
+//- Caso esteja errado enviar mensagens de Erro
+//- Tirar mensangens erro automaticamente caso os dados apareçam corretamente
+//- Enviar informações para o alert
+
+//- Caso enviar errado aparecer mensagem de erro
+//- atualizar erros enquanto o usuário digita
+//- caso escreva certo mas erre de novo mostrar erro
+
+//Virtudes de um bom código
+//- Execute no menor número de linhas possiveis (otimização)
+//- Fácil leitura e boa organização (tirando partes repetidas, e juntando partes parecidas de uma mesma funcionalidade)
+//- Comentários
+
 //Input dados formulário
 const nomeElemento = document.getElementById("nome");
 const emailElemento = document.getElementById("email");
 const senhaElemento = document.getElementById("senha");
 
+//validação nome: apenas ser maior ou igual a três
 nomeElemento.addEventListener("input", (event) => {
-  if (event.target.value.length >= 3) {
-    removerErro("erro-nome");
-  } 
-});
-
-emailElemento.addEventListener("input", (event) => {
-  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(event.target.value)) {
-    removerErro("erro-email");
-  }
-});
-
-senhaElemento.addEventListener("input", (event) => {
-  if (document.getElementById("erro-senha")) {
-    const senha = event.target.value;
-    const tamanho = senha.length;
-    let validacao = [false, false, false];
-
-    const mensagemErro = document.getElementById("erro-senha");
-
-    if (tamanho >= 6) {
-      for (let i = 0; i < tamanho; i++) {
-        if (/[0-9]/.test(senha[i])) {
-          validacao[0] = true;
-        } else if (/[a-zA-Z]/.test(senha[i])) {
-          validacao[1] = true;
-        } else {
-          validacao[2] = true;
-        }
-      }
-      switch (false) {
-        case validacao[0]:
-          mensagemErro.textContent = "* Sua Senha precisa ter números!";
-          break;
-        case validacao[1]:
-          mensagemErro.textContent = "* Sua Senha precisa ter letras!";
-          break;
-        case validacao[2]:
-          mensagemErro.textContent =
-            "* Sua Senha precisa ter no mínimo um caracter especial";
-          break;
-        default:
-          mensagemErro.textContent = "";
-      }
-    } else if (tamanho == 0) {
-        removerErro("erro-senha");
+  const nomeErro = document.getElementById("erro-nome");
+  const tamanho = event.target.value.length;
+  if(nomeErro){
+    if (tamanho == 0) {
+      nomeErro.textContent = "* Nome é obrigatório!";
+    } else if (tamanho < 3) {
+      nomeErro.textContent = "* Nome Inválido!";
     } else {
-      mensagemErro.textContent =
-        "* A Senha tem que ter pelo menos 6 caracteres!";
+      nomeErro.textContent = "";
     }
   }
 });
 
-//função para permitir visibilidade da senha por um botão
-const ver_senha = document.getElementById("ver-senha");
-ver_senha.addEventListener("click", verSenha);
+nomeElemento.addEventListener("focus", () => {
+  nomeElemento.classList.remove("placeholder-erro");
+})
 
-function verSenha() {
-  const senha = document.getElementById("senha");
-  if (senha.type == "password") {
-    senha.type = "text";
-  } else {
-    senha.type = "password";
+emailElemento.addEventListener("input", (event) => {
+  const emailErro = document.getElementById("erro-email");
+  if(emailErro){
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(event.target.value)) {
+      emailErro.textContent = "";
+    } else if(event.target.value == "") {
+      emailErro.textContent = "* Email é obrigatório!";
+    } else {
+      emailErro.textContent = "* Email Inválido!";
+    }
   }
-}
+});
+
+emailElemento.addEventListener("focus", () => {
+  emailElemento.classList.remove("placeholder-erro");
+})
+
+senhaElemento.addEventListener("input", (event) => {
+  validacaoSenha(event.target)
+  const view = document.querySelector(".view");
+  if(view){
+    view.style.color = "var(--cor-selecionado)";
+  }
+});
+
+senhaElemento.addEventListener("focus", () => {
+  senhaElemento.classList.remove("placeholder-erro");
+
+  const view = document.querySelector(".view");
+  if(view){
+    view.style.color = "var(--cor-selecionado)";
+  }
+})
+
+senhaElemento.addEventListener("focusout", () => {
+
+  const view = document.querySelector(".view");
+  if(view){
+    view.style.color = "var(--cor-secundaria)";
+  }
+})
 
 //função para enviar os dados para um Alert e direcionar uma nova página
 const enviar = document.getElementById("enviar");
@@ -77,7 +94,7 @@ enviar.addEventListener("click", enviarDados);
 function enviarDados() {
   const nome = validacaoNome(nomeElemento);
   const email = validacaoEmail(emailElemento);
-  const senha = validacaoSenha(senhaElemento);
+  const senha = validacaoSenha(senhaElemento, true);
 
   if (nome && email && senha) {
     window.alert("Nome: " + nome + "\nEmail: " + email + "\nSenha: " + senha);
@@ -94,6 +111,8 @@ function validacaoNome(nome) {
     nome.value == "" ? "* Nome é obrigatório!" : "* Nome Inválido!"
   }"</p>`;
   nome.insertAdjacentHTML("afterend", mensagemErro);
+  nomeElemento.classList.remove("placeholder-erro");
+  nomeElemento.classList.add("placeholder-erro");
 }
 
 function validacaoEmail(email) {
@@ -105,51 +124,60 @@ function validacaoEmail(email) {
     email.value == "" ? "* Email é obrigatório!" : "* Email Inválido!"
   }"</p>`;
   email.insertAdjacentHTML("afterend", mensagemErro);
+  emailElemento.classList.remove("placeholder-erro");
+  emailElemento.classList.add("placeholder-erro");
 }
 
-function validacaoSenha(elementoSenha) {
+function validacaoSenha(elementoSenha, submit){
   const senha = elementoSenha.value;
   const tamanho = senha.length;
   let validacao = [false, false, false];
 
-  const mensagemErro = document.createElement("p");
-  mensagemErro.id = "erro-senha";
-  mensagemErro.classList.add("erro");
-  removerErro("erro-senha");
+  const mensagemErro = document.getElementById("erro-senha");
 
   if (tamanho >= 6) {
     for (let i = 0; i < tamanho; i++) {
       if (/[0-9]/.test(senha[i])) {
-        validacao[1] = true;
+        validacao[0] = true;
       } else if (/[a-zA-Z]/.test(senha[i])) {
-        validacao[2] = true;
+        validacao[1] = true;
       } else {
-        validacao[3] = true;
-      }
-      if (validacao[1] && validacao[2] && validacao[3]) {
-        return senha;
+        validacao[2] = true;
       }
     }
     switch (false) {
-      case validacao[1]:
+      case validacao[0]:
         mensagemErro.textContent = "* Sua Senha precisa ter números!";
         break;
-      case validacao[2]:
+      case validacao[1]:
         mensagemErro.textContent = "* Sua Senha precisa ter letras!";
         break;
-      case validacao[3]:
+      case validacao[2]:
         mensagemErro.textContent =
           "* Sua Senha precisa ter no mínimo um caracter especial";
+        break;
+      default:
+        mensagemErro.textContent = "";
+        return senha;
     }
   } else if (tamanho == 0) {
-    mensagemErro.textContent = "* Senha inválida!";
+    if(submit == true){
+      mensagemErro.textContent = "* Senha Inválida!";
+    } else {
+      mensagemErro.textContent = "";
+    }
   } else {
-    mensagemErro.textContent = "* A Senha tem que ter pelo menos 6 caracteres!";
+    mensagemErro.textContent =
+      "* A Senha tem que ter pelo menos 6 caracteres!";
   }
-  elementoSenha.parentNode.insertBefore(
-    mensagemErro,
-    elementoSenha.nextSibling.nextSibling
-  );
+  if(submit == true){
+    senhaElemento.classList.remove("placeholder-erro");
+    senhaElemento.classList.add("placeholder-erro");
+    const view = document.querySelector(".view");
+    if(view){
+      view.style.color = "var(--cor-erro)";
+    }
+  }
 }
 
 //-----------------------------------------------------------
@@ -162,3 +190,18 @@ function removerErro(erroId) {
 }
 
 //-----------------------------------------------------------
+
+//DESENVOLVIMENTO:
+/*
+if (tamanho >= 6) {
+  //vai realizar a verificação caracter por caracter
+  for (let i = 0; i < tamanho; i++) {
+    if (/[0-9]/.test(senha[i])) {
+      validacao[0] = true;
+    } else if (/[a-zA-Z]/.test(senha[i])) {
+      validacao[1] = true;
+    } else {
+      validacao[2] = true;
+    }
+  }
+}*/

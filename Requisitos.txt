@@ -1,0 +1,12 @@
+Requisitos:
+- Responsividade em todos os dispositivos
+- Alteração da cor da linha, placeholder e ícone lateral (olhinho ou mensagem de alerta) do input (o texto escrito pelo usuário não recebe alteração)
+	- Preto/Branco: Padrão, ao carregar a página, ou ao sair do foco (focusout)
+	- Azul: quando estiver selecionado, toda vez que for clicado (focus ou focusin)
+	- Vermelho: Mensagem de Erro, apenas quando tentar enviar dados de forma incorreta
+- Validação dos dados com base em uma formatação
+	- Nome(obrigatório): tem que ser maior ou igual a 3 em tamanho
+	- Email(obrigatório): formatação do GPT, não me pergunte
+	- Senha(obrigatório): maior que 6 digitos, com ao menos 1 letra, 1 numero e 1 caracter especial
+- Mensagem de Erro abaixo do input
+- Enviar de Dados para um alert

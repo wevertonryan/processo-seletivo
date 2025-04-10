@@ -1,3 +1,9 @@
+//Funções do Código:
+//- botão que permite a visibilidade da senha e que tire taambém
+//- permitir que o botão de visão apareça apenas quando tiver ao menos um caracter
+//- altere visualmente a cor
+
+//está armazenando os vetores que simbolizam o botão "ver-senha" em uma "variavel" 
 const viewOn = `<svg id="viewOn" class="view" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="15" cy="15" r="5" fill="currentColor"/>
 <path d="M26.25 15C26.25 15 25 5 15 5C5 5 3.75 15 3.75 15" stroke="currentColor" stroke-width="2"/>

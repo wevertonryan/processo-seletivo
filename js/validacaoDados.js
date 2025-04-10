@@ -1,190 +1,152 @@
-//Organizar código:
-//1° para que serve cada parte do código
-//2° Como deixar enxuto (sem deixar partes repetidas)
-//3° Deixar mais otimizado
-//4° Separar em partes
-//5° Comentar
-
-//Funções do Código:
-//- Validar Dados (ver se estão no formato correto)
-//- Caso esteja errado enviar mensagens de Erro
-//- Tirar mensangens erro automaticamente caso os dados apareçam corretamente
-//- Enviar informações para o alert
-
-//- Caso enviar errado aparecer mensagem de erro
-//- atualizar erros enquanto o usuário digita
-//- caso escreva certo mas erre de novo mostrar erro
-
-//Input dados formulário
-const nomeElemento = document.getElementById("nome");
-const emailElemento = document.getElementById("email");
-const senhaElemento = document.getElementById("senha");
-
-//validação nome: apenas ser maior ou igual a três
-nomeElemento.addEventListener("input", (event) => {
-  const nomeErro = document.getElementById("erro-nome");
-  const tamanho = event.target.value.length;
-  if(nomeErro){
-    if (tamanho == 0) {
-      nomeErro.textContent = "* Nome é obrigatório!";
-    } else if (tamanho < 3) {
-      nomeErro.textContent = "* Nome Inválido!";
-    } else {
-      nomeErro.textContent = "";
-    }
-  }
-});
-
-nomeElemento.addEventListener("focus", () => {
-  nomeElemento.classList.remove("placeholder-erro");
-})
-
-emailElemento.addEventListener("input", (event) => {
-  const emailErro = document.getElementById("erro-email");
-  if(emailErro){
-    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(event.target.value)) {
-      emailErro.textContent = "";
-    } else if(event.target.value == "") {
-      emailErro.textContent = "* Email é obrigatório!";
-    } else {
-      emailErro.textContent = "* Email Inválido!";
-    }
-  }
-});
-
-emailElemento.addEventListener("focus", () => {
-  emailElemento.classList.remove("placeholder-erro");
-})
-
-senhaElemento.addEventListener("input", (event) => {
-  validacaoSenha(event.target)
-  const view = document.querySelector(".view");
-  if(view){
-    view.style.color = "var(--cor-selecionado)";
-  }
-});
-
-senhaElemento.addEventListener("focus", () => {
-  senhaElemento.classList.remove("placeholder-erro");
-
-  const view = document.querySelector(".view");
-  if(view){
-    view.style.color = "var(--cor-selecionado)";
-  }
-})
-
-senhaElemento.addEventListener("focusout", () => {
-
-  const view = document.querySelector(".view");
-  if(view){
-    view.style.color = "var(--cor-secundaria)";
-  }
-})
+/*---------------------------- FUNÇÕES DO CÓDIGO --------------------------------------
 
 
+- Validar Dados (ver se estão no formato correto)
+- Caso esteja errado enviar mensagens de Erro
+- Tirar mensangens erro automaticamente caso os dados apareçam corretamente
+- Enviar informações para o alert
 
 
-//função para enviar os dados para um Alert e direcionar uma nova página
-const enviar = document.getElementById("enviar");
-enviar.addEventListener("click", enviarDados);
+---------------------------- VARIAVEIS E CONSTANTES ---------------------------------*/
 
-//captura e validação dos dados
-function enviarDados() {
-  const nome = validacaoNome(nomeElemento);
-  const email = validacaoEmail(emailElemento);
-  const senha = validacaoSenha(senhaElemento, true);
+//Elemento Input dados formulário
+const inputElemento = {
+  nome: document.getElementById("nome"),
+  email: document.getElementById("email"),
+  senha: document.getElementById("senha"),
+};
 
-  if (nome && email && senha) {
-    window.alert("Nome: " + nome + "\nEmail: " + email + "\nSenha: " + senha);
-    window.location.href = "./paginas/cadastro_sucesso.html";
+//Elemento Botão para enviar dados
+const enviarBotao = document.getElementById("enviar");
+
+
+/*------------------ ATUALIZAÇÃO DINÂMICA DAS MENSAGEM DE ERRO ------------------------*/
+
+/*Atualiza o campo mensagem de erro do Input conforme o usuario digita*/
+inputElemento.nome.addEventListener("input", ()=>(inputMensagemErro("nome")));
+inputElemento.email.addEventListener("input", ()=>(inputMensagemErro("email")));
+inputElemento.senha.addEventListener("input", ()=>(inputMensagemErro("senha")));
+
+function inputMensagemErro(input) {
+  console.log("teste")
+  const inputErro = document.getElementById("erro-" + input);
+
+  if (inputErro) { //verificando se o Elemento erro existe
+    inputErro.textContent = condicaoInput[input](inputElemento[input].value);
   }
 }
 
-function validacaoNome(nome) {
-  if (nome.value.length >= 3) {
-    return nome.value;
-  }
-  removerErro("erro-nome");
-  const mensagemErro = `<p id="erro-nome" class="erro">${
-    nome.value == "" ? "* Nome é obrigatório!" : "* Nome Inválido!"
-  }"</p>`;
-  nome.insertAdjacentHTML("afterend", mensagemErro);
-  nomeElemento.classList.remove("placeholder-erro");
-  nomeElemento.classList.add("placeholder-erro");
-}
 
-function validacaoEmail(email) {
-  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-    return email.value;
-  }
-  removerErro("erro-email");
-  const mensagemErro = `<p id="erro-email" class="erro">${
-    email.value == "" ? "* Email é obrigatório!" : "* Email Inválido!"
-  }"</p>`;
-  email.insertAdjacentHTML("afterend", mensagemErro);
-  emailElemento.classList.remove("placeholder-erro");
-  emailElemento.classList.add("placeholder-erro");
-}
+/*----------------------- VALIDAÇÃO E MENSAGENS DE ERRO -------------------------------*/
 
-function validacaoSenha(elementoSenha, submit){
-  const senha = elementoSenha.value;
-  const tamanho = senha.length;
-  let validacao = [false, false, false];
-
-  const mensagemErro = document.getElementById("erro-senha");
-
-  if (tamanho >= 6) {
-    for (let i = 0; i < tamanho; i++) {
-      if (/[0-9]/.test(senha[i])) {
-        validacao[0] = true;
-      } else if (/[a-zA-Z]/.test(senha[i])) {
-        validacao[1] = true;
+/*Verifica como o dado do formulario fornecido pelo usuário se enquadra*/
+const condicaoInput = {
+  nome: (nome) => {
+    tamanhoNome = nome.length;
+    if (tamanhoNome < 3) {
+      //retorna a mensagem de erro
+      if (tamanhoNome == 0) {
+        return "* Nome é obrigatório!";
       } else {
-        validacao[2] = true;
+        return "* Nome Inválido!";
       }
     }
-    switch (false) {
-      case validacao[0]:
-        mensagemErro.textContent = "* Sua Senha precisa ter números!";
-        break;
-      case validacao[1]:
-        mensagemErro.textContent = "* Sua Senha precisa ter letras!";
-        break;
-      case validacao[2]:
-        mensagemErro.textContent =
-          "* Sua Senha precisa ter no mínimo um caracter especial";
-        break;
-      default:
-        mensagemErro.textContent = "";
-        return senha;
+    return "";
+  },
+  
+  email: (email) => {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      if (email == "") {
+        return "* Email é obrigatório!";
+      } else {
+        return "* Email Inválido!";
+      }
     }
-  } else if (tamanho == 0) {
-    if(submit == true){
-      mensagemErro.textContent = "* Senha Inválida!";
+    return "";
+  },
+
+  senha: (senha) => {
+    const tamanho = senha.length;
+    let validacao = [false, false, false];
+
+    if (tamanho >= 6) {
+      //pega a senha que o usuário colocou, e verifica cada caracter individualmente
+      for (let i = 0; i < tamanho; i++) {
+        //em cada loop ele verifica qual tipo o caracter é
+        if (/[0-9]/.test(senha[i])) {
+          //numero
+          validacao[0] = true;
+        } else if (/[a-zA-Z]/.test(senha[i])) {
+          //letra
+          validacao[1] = true;
+        } else {
+          //caracter especial
+          validacao[2] = true;
+        }
+        //preciso que tenha ao menos 1 caracter de cada tipo na senha
+        if (validacao[0] && validacao[1] && validacao[2]) { //caso encontre os 3 tipos de caracteres já retorna
+          return "";
+        }
+      }
+      // se não der return é porque não tem algum dos caracteres pedidos
+      // vai ser feita verificação para ver qual deles é falso
+      switch (false) {
+        case validacao[0]:
+          return "* Sua Senha precisa ter números!";
+        case validacao[1]:
+          return "* Sua Senha precisa ter letras!";
+        case validacao[2]:
+          return "* Sua Senha precisa ter no mínimo um caracter especial";
+      }
+    } else if (tamanho == 0) {
+      return "* Senha Inválida!";
     } else {
-      mensagemErro.textContent = "";
+      return "* A Senha tem que ter pelo menos 6 caracteres!";
     }
-  } else {
-    mensagemErro.textContent =
-      "* A Senha tem que ter pelo menos 6 caracteres!";
+  },
+};
+
+/* Valida se o valor fornecido pelo usuário está formatado corretamente */
+//- Retorno será Verdadeiro ou Falso
+function validacaoInput(valor, tipo) {
+  const mensagem = condicaoInput[tipo](valor);
+  if(mensagem == ""){
+    return true;
   }
-  if(submit == true){
-    senhaElemento.classList.remove("placeholder-erro");
-    senhaElemento.classList.add("placeholder-erro");
-    const view = document.querySelector(".view");
-    if(view){
-      view.style.color = "var(--cor-erro)";
-    }
+
+  //O elemento erro irá mostrar as informações de erro de formatação
+  //Eu decidi não criar o Elemento erro no html direto pois queria que aparecesse apenas no caso de alguém enviar alguma informação incorreta
+  //então é necessário verificar sua existencia
+  let inputErro = document.getElementById("erro-"+tipo);
+  if(!inputErro){ //no caso de não existir (só acontece na priveira vez que essa função for chamada)
+    //criação do elemento erro conforme o seu tipo
+    inputErro = document.createElement("p");
+    inputErro.id = "erro-"+tipo;
+    inputErro.classList.add("erro");
+    inputErro.textContent = mensagem;
+    inputElemento[tipo].parentNode.insertBefore(inputErro, inputElemento[tipo].nextSibling)
+  } else { //caso já exista
+    inputErro.textContent = mensagem;
+  }
+  return false;
+}
+
+
+/*--------------------------- ENVIAR DADOS DO FORMULÁRIO ------------------------------*/
+
+/*para enviar os dados para o Alert()*/
+enviarBotao.addEventListener("click", enviarDados)
+function enviarDados(){
+  const nome = inputElemento.nome.value;
+  const nomeValido = validacaoInput(nome, "nome");
+  const email = inputElemento.email.value;
+  const emailValido = validacaoInput(email, "email");
+  const senha = inputElemento.senha.value;
+  const senhaValido = validacaoInput(senha, "senha");
+
+  if(nomeValido && emailValido && senhaValido){
+    window.alert("Nome: " + nome + "\nEmail: " + email + "\nSenha: " + senha);
   }
 }
 
-//-----------------------------------------------------------
-
-function removerErro(erroId) {
-  if (document.getElementById(erroId)) {
-    const erroEmail = document.getElementById(erroId);
-    erroEmail.parentNode.removeChild(erroEmail);
-  }
-}
-
-//-----------------------------------------------------------
+/*-------------------------------------------------------------------------------------*/
