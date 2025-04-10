@@ -10,33 +10,35 @@
     * {
         font-size: 17px;
     }
-    .erro {
-        bottom: 40px;
-    }
+    /*-------------------*/
     .formulario-cadastro {
         align-items: center;
         width: 100%;
-        min-width: 100px;
     }
     .formulario-cadastro h1 {
         text-align: center;
         width: 100%;
+        margin-bottom: 50px;
     }
+    /*-------------------*/
     .formulario {
-        width: 70%;
-        min-width: 250px;
+        width: 67%;
     }
-    .formulario input {
-        margin-bottom: 45px;
+    .input-dado {
+        margin-bottom: 40px;
     }
     #enviar {
         width: 100%;
         margin-top: 30px;
     }
+    /*-------------------*/
     #info-site {
         width: 100%;
         left: 0;
         text-align: center;
+    }
+    .erro {
+        bottom: 35px;
     }
     .view {
         height: 25px;
@@ -49,7 +51,7 @@
         font-size: 3.25em;
         margin-bottom: 50px;
     }
-    .formulario input {
+    .input-dado {
         margin-bottom: 32px;
     }
 } 
