@@ -1,3 +1,4 @@
+/*----------------------- GERAL --------------------------*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
@@ -7,45 +8,52 @@
     font-size: 20px;
 }
 
-h1 {
-    color: var(--cor-destaque);
-    font-size: 3.75em;
-}
-.formulario-cadastro h1 {
-    width: 100%;
-    margin-bottom: 50px;
-}
-
-.erro {
-    position: relative;
-    bottom: 50px;
-    font-size: 0.80em;
-    display: flex;
-    color: var(--cor-erro);
-    font-weight: 600;
-    height: 0;
-    align-self:flex-start;
-}
-.tema-botao {
-    position: fixed;
-}
-
 body {
     display: flex;
     height: 100vh;
 }
 
-.cadastro, .integrale-logo{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
+button {
+    background-color: var(--cor-destaque);
+    color: white;
+    font-weight: 600;
+    border: 0;
+    outline: 0;
+    transition: 0.2s ease;
 }
 
-.integrale-logo {
+button:focus, button:hover {
+    background-color: var(--cor-selecionado);
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 3.75em;
+    color: var(--cor-destaque);
+}
+
+p {
+    color: var(--cor-secundaria);
+}
+
+/*------------------ BLOCOS PRINCIPAIS -------------------*/
+
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
+}
+
+.cadastro {
+    flex-direction: column;
+    width: 60%;
+}
+
+.integrale-logo {
     background-color: var(--cor-destaque);
     flex-grow: 1;
 }
@@ -55,9 +63,7 @@ body {
     width: 70%;
 }
 
-.cadastro {
-    width: 60%;
-}
+/*----------------------- CADASTRO -----------------------*/
 
 .formulario-cadastro {
     display: flex;
@@ -69,6 +75,13 @@ body {
     min-width: 450px;
 }
 
+.formulario-cadastro h1 {
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+/*---------------------- FORMULÁRIO ----------------------*/
+
 .formulario {
     display: flex;
     flex-direction: column;
@@ -77,32 +90,38 @@ body {
     min-width: 370px;
 }
 
-.formulario input{
+.input-dado {
     width: calc(100% - 10px);
     padding: 0px 5px;
     margin-bottom: 55px;
     border: 0;
     border-bottom: solid 2px var(--cor-secundaria);
-    color: var(--cor-secundaria);
     transition: 0.2s ease;
 }
-.formulario input:focus {
-    border: 0;
+
+.input-dado:focus {
     outline: 0;
     border-bottom: solid 2px var(--cor-selecionado);
 }
 
-.formulario input:focus::placeholder {
-    transition: 0.2s ease;
+.input-dado:focus::placeholder {
     color: var(--cor-selecionado);
+    transition: 0.2s ease;
 }
 
-.formulario .placeholder-erro {
+.placeholder-erro {
     border-bottom: solid 2px var(--cor-erro);
 }
 .placeholder-erro::placeholder {
     color: var(--cor-erro);
 }
+
+#senha {
+    width: calc(100% - 40px);
+    padding: 0px 35px 0px 5px;
+}
+
+/*--------------------------------------------------------*/
 
 #senha-erro {
     position: relative;
@@ -110,26 +129,9 @@ body {
 }
 
 #enviar {
-    color: white;
-    background-color: var(--cor-destaque);
-    font-weight: 600;
-    border: 0;
     border-radius: 3px;
     width: 140px;
     height: 45px;
-    transition: 0.2s ease;
-}
-
-#enviar:hover {
-    cursor: pointer;
-    background-color: var(--cor-selecionado);
-}
-
-#info-site {
-    position: absolute;
-    color: #00000099;
-    bottom: 10px;
-    left: 2%;
 }
 
 #ver-senha {
@@ -140,10 +142,33 @@ body {
     right: 0;
 }
 
-#ver-senha svg {
-    transition: 0.2s ease;
-}
-
 #ver-senha:hover {
     cursor: pointer;
 }
+
+/*----------------------- DETALHES -----------------------*/
+
+#info-site {
+    position: absolute;
+    color: var(--cor-secundaria);
+    opacity: 0.6;
+    bottom: 10px;
+    left: 2%;
+}
+
+.tema-botao {
+    position: fixed;
+}
+
+.erro {
+    position: relative;
+    bottom: 50px;
+    font-size: 0.80em;
+    display: flex;
+    color: var(--cor-erro);
+    font-weight: 600;
+    height: 0;
+    align-self: flex-start;
+}
+
+/*--------------------------------------------------------*/
