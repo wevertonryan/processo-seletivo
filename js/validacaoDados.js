@@ -54,7 +54,7 @@ const condicaoInput = {
   },
   
   email: (email) => {
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { //o teste de validação de email /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test() foi fornecido por IA
       if (email == "") {
         return "* Email é obrigatório!";
       } else {
@@ -72,10 +72,10 @@ const condicaoInput = {
       //pega a senha que o usuário colocou, e verifica cada caracter individualmente
       for (let i = 0; i < tamanho; i++) {
         //em cada loop ele verifica qual tipo o caracter é
-        if (/[0-9]/.test(senha[i])) {
+        if (/[0-9]/.test(senha[i])) { //o teste de validação de numero /[0-9]/.test() foi fornecido por IA
           //numero
           validacao[0] = true;
-        } else if (/[a-zA-Z]/.test(senha[i])) {
+        } else if (/[a-zA-Z]/.test(senha[i])) { //o teste de validação de letra /[a-zA-Z]/.test() foi fornecido por IA
           //letra
           validacao[1] = true;
         } else {
