@@ -90,30 +90,34 @@ p {
     min-width: 250px;
 }
 
+.pai-input {
+    position: relative;
+    width: 100%;
+    color: var(--cor-secundaria);
+}
+
+.pai-input:has(.input-dado:focus) {
+    color: var(--cor-selecionado);
+}
+
 .input-dado {
     width: calc(100% - 10px);
     padding: 0px 5px;
     margin-bottom: 55px;
     border: 0;
-    border-bottom: solid 2px var(--cor-secundaria);
+    border-bottom: solid 2px;
     transition: 0.2s ease;
+    border-color: var(--cor-secundaria);
 }
 
 .input-dado:focus {
     outline: 0;
-    border-bottom: solid 2px var(--cor-selecionado);
+    border-color: var(--cor-selecionado);
 }
 
 .input-dado:focus::placeholder {
     color: var(--cor-selecionado);
     transition: 0.2s ease;
-}
-
-.placeholder-erro {
-    border-bottom: solid 2px var(--cor-erro);
-}
-.placeholder-erro::placeholder {
-    color: var(--cor-erro);
 }
 
 #senha {
@@ -122,11 +126,6 @@ p {
 }
 
 /*--------------------------------------------------------*/
-
-#senha-erro {
-    position: relative;
-    width: 100%;
-}
 
 #enviar {
     border-radius: 3px;
@@ -140,6 +139,7 @@ p {
     position: absolute;
     top: 0;
     right: 0;
+    transition: 0.2s ease;
 }
 
 #ver-senha svg:hover {
@@ -161,11 +161,22 @@ p {
 }
 
 .erro {
+    color: var(--cor-erro);
+}
+
+.erro .input-dado {
+    border-color: var(--cor-erro);
+}
+
+.erro .input-dado::placeholder {
+    color: var(--cor-erro);
+}
+
+.input-mensagem {
     position: relative;
     bottom: 50px;
     font-size: 0.80em;
     display: flex;
-    color: var(--cor-erro);
     font-weight: 600;
     height: 0;
     align-self: flex-start;

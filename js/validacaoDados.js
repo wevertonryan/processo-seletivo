@@ -5,6 +5,7 @@
 - Caso esteja errado enviar mensagens de Erro
 - Tirar mensangens erro automaticamente caso os dados apareçam corretamente
 - Enviar informações para o alert
+- altera a aparencia conforme interação do usuario (coisas que não seja possivel em css)
 
 
 ---------------------------- VARIAVEIS E CONSTANTES ---------------------------------*/
@@ -13,7 +14,7 @@
 const inputElemento = {
   nome: document.getElementById("nome"),
   email: document.getElementById("email"),
-  senha: document.getElementById("senha"),
+  senha: document.getElementById("senha")
 };
 
 //Elemento Botão para enviar dados
@@ -33,6 +34,15 @@ function inputMensagemErro(input) {
   if (inputErro) { //verificando se o Elemento erro existe
     inputErro.textContent = condicaoInput[input](inputElemento[input].value);
   }
+}
+
+/*Quando o usuário clicar no input tirar a classe de erro que altera cor*/
+inputElemento.nome.addEventListener("focus", ()=>{desativarVisualErro("nome")});
+inputElemento.email.addEventListener("focus", ()=>{desativarVisualErro("email")});
+inputElemento.senha.addEventListener("focus", ()=>{desativarVisualErro("senha")});
+
+function desativarVisualErro(input) {
+  inputElemento[input].parentNode.classList.remove("erro");
 }
 
 
@@ -109,24 +119,28 @@ const condicaoInput = {
 //- Retorno será Verdadeiro ou Falso
 function validacaoInput(valor, tipo) {
   const mensagem = condicaoInput[tipo](valor);
+  let inputErro = document.getElementById("erro-"+tipo);
   if(mensagem == ""){
+    if(inputErro){ //para remover a mensagem de erro caso o usuario envie os dados corretamente
+      inputErro.parentNode.removeChild(inputErro)
+    }
     return true;
   }
 
   //O elemento erro irá mostrar as informações de erro de formatação
   //Eu decidi não criar o Elemento erro no html direto pois queria que aparecesse apenas no caso de alguém enviar alguma informação incorreta
   //então é necessário verificar sua existencia
-  let inputErro = document.getElementById("erro-"+tipo);
   if(!inputErro){ //no caso de não existir (só acontece na priveira vez que essa função for chamada)
     //criação do elemento erro conforme o seu tipo
     inputErro = document.createElement("p");
     inputErro.id = "erro-"+tipo;
-    inputErro.classList.add("erro");
+    inputErro.classList.add("input-mensagem", "erro");
     inputErro.textContent = mensagem;
     inputElemento[tipo].parentNode.insertBefore(inputErro, inputElemento[tipo].nextSibling)
   } else { //caso já exista
     inputErro.textContent = mensagem;
   }
+  inputElemento[tipo].parentNode.classList.add("erro"); //altera a aparencia do input
   return false;
 }
 

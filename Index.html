@@ -15,11 +15,15 @@
       <div class="formulario-cadastro">
         <h1>Cadastro</h1>
         <div class="formulario">
-          <input type="text" class="input-dado" id="nome" tabindex="1" placeholder="Nome" />
-          <input type="text" class="input-dado" id="email" tabindex="2" placeholder="Email" />
-          <div id="senha-erro">
-          <input type="password" class="input-dado" id="senha" tabindex="3" placeholder="Senha" />
-          <div id='ver-senha'></div>
+          <div class="pai-input">
+            <input type="text" class="input-dado" id="nome" tabindex="1" placeholder="Nome" />
+          </div>
+          <div class="pai-input">
+            <input type="text" class="input-dado" id="email" tabindex="2" placeholder="Email" />
+          </div>
+          <div class="pai-input">
+            <input type="password" class="input-dado" id="senha" tabindex="3" placeholder="Senha" />
+            <div id="ver-senha"></div>
           </div>
           <button id="enviar" tabindex="4">Enviar</button>
         </div>
@@ -32,7 +36,7 @@
     <div class="tema-botao" tabindex="5"></div>
 
     <!-------------------------------- JAVA SCRIPT ------------------------------------->
-    <script src="js/script.js"></script>
     <script src="js/validacaoDados.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>
