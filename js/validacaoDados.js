@@ -28,7 +28,6 @@ inputElemento.email.addEventListener("input", ()=>(inputMensagemErro("email")));
 inputElemento.senha.addEventListener("input", ()=>(inputMensagemErro("senha")));
 
 function inputMensagemErro(input) {
-  console.log("teste")
   const inputErro = document.getElementById("erro-" + input);
 
   if (inputErro) { //verificando se o Elemento erro existe
