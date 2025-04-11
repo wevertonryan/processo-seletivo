@@ -1,55 +1,167 @@
 /*---------------------------- FUNÇÕES DO CÓDIGO --------------------------------------
 
 
-- botão que permite a visibilidade da senha
-- permitir que o botão de visibilidade apareça apenas quando tiver ao menos um caracter
+- Validar Dados (ver se estão no formato correto)
+- Caso esteja errado enviar mensagens de Erro
+- Tirar mensangens erro automaticamente caso os dados apareçam corretamente
+- Enviar informações para o alert
+- altera a aparencia conforme interação do usuario (coisas que não seja possivel em css)
 
 
------------------------------------ VETORES -----------------------------------------*/
+---------------------------- VARIAVEIS E CONSTANTES ---------------------------------*/
 
-/* Armazenando os vetores que simbolizam o botão "ver-senha" em uma Constante*/
-//Vetor que permite a visibilidade da senha
-const viewOn = `<svg id="viewOn" onclick='verSenha()' class="view" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="15" cy="15" r="5" fill="currentColor"/>
-<path d="M26.25 15C26.25 15 25 5 15 5C5 5 3.75 15 3.75 15" stroke="currentColor" stroke-width="2"/>
-</svg>`
-//Vetor que inibe a visibildade da senha
-const viewOff = `<svg id="viewOff" onclick='verSenha()' class="view" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M26 15C26 15 24.7778 21 15 21C5.22222 21 4 15 4 15" stroke="currentColor" stroke-width="2"/>
-<path d="M5.1 18.8L5.9 18.2L4.7 16.6L3.9 17.2L5.1 18.8ZM1.9 18.7C1.45817 19.0314 1.36863 19.6582 1.7 20.1C2.03137 20.5418 2.65817 20.6314 3.1 20.3L1.9 18.7ZM3.9 17.2L1.9 18.7L3.1 20.3L5.1 18.8L3.9 17.2Z" fill="currentColor"/>
-<path d="M24.9 18.8L24.1 18.2L25.3 16.6L26.1 17.2L24.9 18.8ZM28.1 18.7C28.5418 19.0314 28.6314 19.6582 28.3 20.1C27.9686 20.5418 27.3418 20.6314 26.9 20.3L28.1 18.7ZM26.1 17.2L28.1 18.7L26.9 20.3L24.9 18.8L26.1 17.2Z" fill="currentColor"/>
-<path d="M10.8866 21.2525L11.187 20.2963L9.25985 19.7783L8.95948 20.7345L10.8866 21.2525ZM8.03642 23.6728C7.87053 24.2009 8.16745 24.745 8.69961 24.888C9.23177 25.0311 9.79764 24.7189 9.96353 24.1909L8.03642 23.6728ZM8.95948 20.7345L8.03642 23.6728L9.96353 24.1909L10.8866 21.2525L8.95948 20.7345Z" fill="currentColor"/>
-<path d="M19.1134 21.2866L18.813 20.3304L20.7402 19.8124L21.0405 20.7686L19.1134 21.2866ZM21.9636 23.707C22.1295 24.235 21.8325 24.7791 21.3004 24.9221C20.7682 25.0652 20.2024 24.753 20.0365 24.225L21.9636 23.707ZM21.0405 20.7686L21.9636 23.707L20.0365 24.225L19.1134 21.2866L21.0405 20.7686Z" fill="currentColor"/>
-</svg>`
+//Elemento Input dados formulário
+const inputElemento = {
+  nome: document.getElementById("nome"),
+  email: document.getElementById("email"),
+  senha: document.getElementById("senha")
+};
+
+//Elemento Botão para enviar dados
+const enviarBotao = document.getElementById("enviar");
 
 
-//----------------------- ADIÇÃO/REMOÇÃO BOTÃO VISIBILIDADE ---------------------------//
+/*------------------ ATUALIZAÇÃO DINÂMICA DAS MENSAGEM DE ERRO ------------------------*/
 
-//criação do botão "ver senha" quando tiver ao menos 1 caracter
-const senha = document.getElementById("senha");
-const verSenhaBotao = document.getElementById("ver-senha");
+/*Atualiza o campo mensagem de erro do Input conforme o usuario digita*/
+inputElemento.nome.addEventListener("input", ()=>(inputMensagemErro("nome")));
+inputElemento.email.addEventListener("input", ()=>(inputMensagemErro("email")));
+inputElemento.senha.addEventListener("input", ()=>(inputMensagemErro("senha")));
 
-senha.addEventListener("input", (event) => {
-  if (event.target.value != "" && verSenhaBotao.textContent == "") {
-    verSenhaBotao.innerHTML = viewOff;
-  //quando não tem nem um valor no Input Senha 
-  } else if (event.target.value == "") {
-    verSenhaBotao.innerHTML = "";
-    senha.type = "password"; //quando o usuario apaga todos os digitos desabilita visibilidade
-  }
-});
+function inputMensagemErro(input) {
+  const inputErro = document.getElementById("erro-" + input);
 
-//--------------------------------- VISIBILIDADE --------------------------------------//
-
-//função chamada pelo botão "ver senha" para permitir visibilidade da senha
-function verSenha() {
-  if (senha.type == "password") {
-    senha.type = "text";
-    verSenhaBotao.innerHTML = viewOn;
-  } else {
-    senha.type = "password";
-    verSenhaBotao.innerHTML = viewOff;
+  if (inputErro) { //verificando se o Elemento erro existe
+    inputErro.textContent = condicaoInput[input](inputElemento[input].value);
   }
 }
 
-//-------------------------------------------------------------------------------------//
+/*Quando o usuário clicar no input tirar a classe de erro que altera cor*/
+inputElemento.nome.addEventListener("focus", ()=>{desativarVisualErro("nome")});
+inputElemento.email.addEventListener("focus", ()=>{desativarVisualErro("email")});
+inputElemento.senha.addEventListener("focus", ()=>{desativarVisualErro("senha")});
+
+function desativarVisualErro(input) {
+  inputElemento[input].parentNode.classList.remove("erro");
+  inputElemento[input].parentNode.querySelector(".icone-input").innerHTML = "";
+}
+
+
+/*----------------------- VALIDAÇÃO E MENSAGENS DE ERRO -------------------------------*/
+
+/*Verifica como o dado do formulario fornecido pelo usuário se enquadra*/
+const condicaoInput = {
+  nome: (nome) => {
+    tamanhoNome = nome.length;
+    if (tamanhoNome < 3) {
+      //retorna a mensagem de erro
+      if (tamanhoNome == 0) {
+        return "* Nome é obrigatório!";
+      } else {
+        return "* Nome Inválido!";
+      }
+    }
+    return "";
+  },
+  
+  email: (email) => {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { //o teste de validação de email /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test() foi fornecido por IA
+      if (email == "") {
+        return "* Email é obrigatório!";
+      } else {
+        return "* Email Inválido!";
+      }
+    }
+    return "";
+  },
+
+  senha: (senha) => {
+    const tamanho = senha.length;
+    let validacao = [false, false, false];
+
+    if (tamanho >= 6) {
+      //pega a senha que o usuário colocou, e verifica cada caracter individualmente
+      for (let i = 0; i < tamanho; i++) {
+        //em cada loop ele verifica qual tipo o caracter é
+        if (/[0-9]/.test(senha[i])) { //o teste de validação de numero /[0-9]/.test() foi fornecido por IA
+          //numero
+          validacao[0] = true;
+        } else if (/[a-zA-Z]/.test(senha[i])) { //o teste de validação de letra /[a-zA-Z]/.test() foi fornecido por IA
+          //letra
+          validacao[1] = true;
+        } else {
+          //caracter especial
+          validacao[2] = true;
+        }
+        //preciso que tenha ao menos 1 caracter de cada tipo na senha
+        if (validacao[0] && validacao[1] && validacao[2]) { //caso encontre os 3 tipos de caracteres já retorna
+          return "";
+        }
+      }
+      // se não der return é porque não tem algum dos caracteres pedidos
+      // vai ser feita verificação para ver qual deles é falso
+      switch (false) {
+        case validacao[0]:
+          return "* Sua Senha precisa ter números!";
+        case validacao[1]:
+          return "* Sua Senha precisa ter letras!";
+        case validacao[2]:
+          return "* Sua Senha precisa ter no mínimo um caracter especial";
+      }
+    } else if (tamanho == 0) {
+      return "* Senha Inválida!";
+    } else {
+      return "* A Senha tem que ter pelo menos 6 caracteres!";
+    }
+  },
+};
+
+/* Valida se o valor fornecido pelo usuário está formatado corretamente */
+//- Retorno será Verdadeiro ou Falso
+function validacaoInput(valor, tipo) {
+  const mensagem = condicaoInput[tipo](valor);
+  let inputErro = document.getElementById("erro-"+tipo);
+  if(mensagem == ""){
+    if(inputErro){ //para remover a mensagem de erro caso o usuario envie os dados corretamente
+      inputErro.parentNode.removeChild(inputErro)
+    }
+    return true;
+  }
+
+  //O elemento erro irá mostrar as informações de erro de formatação
+  //Eu decidi não criar o Elemento erro no html direto pois queria que aparecesse apenas no caso de alguém enviar alguma informação incorreta
+  //então é necessário verificar sua existencia
+  if(!inputErro){ //no caso de não existir (só acontece na priveira vez que essa função for chamada)
+    //criação do elemento erro conforme o seu tipo
+    inputErro = document.createElement("p");
+    inputErro.id = "erro-"+tipo;
+    inputErro.classList.add("input-mensagem", "erro");
+    inputErro.textContent = mensagem;
+    inputElemento[tipo].parentNode.insertBefore(inputErro, inputElemento[tipo].nextSibling)
+  } else { //caso já exista
+    inputErro.textContent = mensagem;
+  }
+  inputElemento[tipo].parentNode.classList.add("erro"); //altera a aparencia do input
+  inputElemento[tipo].parentNode.querySelector(".icone-input").innerHTML = "<img src='img/Alert.svg'>";
+  return false;
+}
+
+
+/*--------------------------- ENVIAR DADOS DO FORMULÁRIO ------------------------------*/
+
+/*para enviar os dados para o Alert()*/
+enviarBotao.addEventListener("click", enviarDados)
+function enviarDados(){
+  const nome = inputElemento.nome.value;
+  const nomeValido = validacaoInput(nome, "nome");
+  const email = inputElemento.email.value;
+  const emailValido = validacaoInput(email, "email");
+  const senha = inputElemento.senha.value;
+  const senhaValido = validacaoInput(senha, "senha");
+
+  if(nomeValido && emailValido && senhaValido){
+    window.alert("Nome: " + nome + "\nEmail: " + email + "\nSenha: " + senha);
+  }
+}
+
+/*-------------------------------------------------------------------------------------*/
