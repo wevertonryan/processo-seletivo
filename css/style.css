@@ -181,6 +181,7 @@ p {
     opacity: 0.6;
     color: white;
     border: solid 3px white;
+    transition: 0.2s ease;
 }
 
 .tema-botao:hover {
@@ -195,14 +196,7 @@ p {
     }
 }
 
-<<<<<<< HEAD
-.preenchimento, .linha {
-    transition: 0.2s ease;
-}
-
-=======
->>>>>>> 0881a0550b2f0d982d22a3b1d8e799fe6295eb70
-.preenchimento{
+.preenchimento {
     fill: var(--cor-destaque);
     stroke: var(--cor-primaria);
 }
