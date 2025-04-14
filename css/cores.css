@@ -1,7 +1,12 @@
 :root {
     --cor-primaria: #FFFFFF;
-    --cor-secundaria: #000000;
+    --cor-secundaria: #262424;
     --cor-destaque: #415DEA;
     --cor-selecionado: #2785ff;
     --cor-erro: #FF1A1A;
+}
+
+.tema-escuro {
+    --cor-primaria: #262424;
+    --cor-secundaria: #FFFFFF;
 }

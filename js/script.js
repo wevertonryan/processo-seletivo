@@ -43,7 +43,6 @@ inputElemento.senha.addEventListener("focus", ()=>{desativarVisualErro("senha")}
 
 function desativarVisualErro(input) {
   inputElemento[input].parentNode.classList.remove("erro");
-  inputElemento[input].parentNode.querySelector(".icone-input").innerHTML = "";
 }
 
 
@@ -142,7 +141,6 @@ function validacaoInput(valor, tipo) {
     inputErro.textContent = mensagem;
   }
   inputElemento[tipo].parentNode.classList.add("erro"); //altera a aparencia do input
-  inputElemento[tipo].parentNode.querySelector(".icone-input").innerHTML = "<img src='img/Alert.svg'>";
   return false;
 }
 
