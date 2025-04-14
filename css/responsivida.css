@@ -5,6 +5,16 @@
     .cadastro {
         width: 100%;
     } 
+    .tema-botao, .tema-botao:hover {
+        color: var(--cor-primaria);
+        background-color: var(--cor-destaque);
+        border-color: var(--cor-destaque);
+        top: 3%;
+        opacity: 1;
+        .preenchimento, .linha {
+           fill: var(--cor-primaria);
+        }
+    }
 }
 @media (max-width: 600px) {
     * {
@@ -42,6 +52,14 @@
     }
     .view {
         height: 25px;
+    }
+    .tema-botao {
+        height: 60px;
+        width: 60px;
+    }
+    .tema-botao svg {
+        height: 42px;
+        width: 42px;
     }
 } @media (max-width: 450px) {
     .erro {
