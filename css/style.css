@@ -10,6 +10,7 @@
 
 body {
     display: flex;
+    min-height: 600px;
     height: 100vh;
 }
 
@@ -42,6 +43,7 @@ p {
 /*------------------ BLOCOS PRINCIPAIS -------------------*/
 
 .container {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,6 +116,11 @@ p {
     background-color: var(--cor-primaria);
 }
 
+.input-dado:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--cor-primaria) inset;
+  -webkit-text-fill-color: var(--cor-secundaria);
+}
+
 .input-dado:focus {
     outline: 0;
     border-color: var(--cor-selecionado);
@@ -156,8 +163,9 @@ p {
     position: absolute;
     color: var(--cor-secundaria);
     opacity: 0.6;
-    bottom: 10px;
     left: 2%;
+    bottom: 10px;
+    justify-self: flex-end;
 }
 
 .tema-botao {
@@ -187,6 +195,13 @@ p {
     }
 }
 
+<<<<<<< HEAD
+.preenchimento, .linha {
+    transition: 0.2s ease;
+}
+
+=======
+>>>>>>> 0881a0550b2f0d982d22a3b1d8e799fe6295eb70
 .preenchimento{
     fill: var(--cor-destaque);
     stroke: var(--cor-primaria);
@@ -205,7 +220,7 @@ p {
 }
 
 .input-mensagem {
-    position: relative;
+    position: absolute;
     bottom: 50px;
     font-size: 0.80em;
     display: flex;

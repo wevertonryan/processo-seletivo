@@ -48,7 +48,7 @@
         left: 0;
         text-align: center;
     }
-    .erro {
+    .input-mensagem {
         bottom: 35px;
     }
     .view {
@@ -63,7 +63,7 @@
         width: 42px;
     }
 } @media (max-width: 450px) {
-    .erro {
+    .input-mensagem {
         bottom: 27px;
     }
     .formulario-cadastro h1 {

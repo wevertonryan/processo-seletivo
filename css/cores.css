@@ -9,4 +9,9 @@
 .tema-escuro {
     --cor-primaria: #262424;
     --cor-secundaria: #e4ded8;
+<<<<<<< HEAD
+    --cor-selecionado: #4d9aff;
+    --cor-erro: #ff3838;
+=======
+>>>>>>> 0881a0550b2f0d982d22a3b1d8e799fe6295eb70
 }
